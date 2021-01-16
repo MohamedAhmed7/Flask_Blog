@@ -14,6 +14,7 @@ class User(db.Model, UserMixin):
 
     # define the relationship between user and posts models
     posts = db.relationship('Post', backref='author', lazy=True)
+    reply = db.relationship('Replies', backref='user', lazy=True)
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
@@ -26,5 +27,16 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
+    replies = db.relationship('Replies', backref='replies', lazy=True)
     def __repr__(self):
         return f"Post('{self.title}','{self.date_posted}')"
+
+class Replies(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    content = db.Column(db.Text, nullable = False)
+
+    def __repr__(self):
+        return f"Reply('{self.post_id}', '{self.user_id}', '{self.content}')"
