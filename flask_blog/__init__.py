@@ -11,9 +11,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['MAIL_SERVER']   = 'smtp.googlemail.com'
 app.config['MAIL_PORT']     = 587
 app.config['MAIL_USE_TLS']  = True
-# Set environment variables
-os.environ['Email_USER'] = 'moh.ahmed.abass@gmail.com'
-os.environ['EMAIL_PASS'] = '@mohamed01122230207'
+
 # these are credentials to gmail account
 app.config['MAIL_USERNAME'] = os.environ.get('EMAIL_USER')
 app.config['MAIL_PASSWORD'] = os.environ.get('EMAIL_PASS')
